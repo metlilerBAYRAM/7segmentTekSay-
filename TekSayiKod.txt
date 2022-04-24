@@ -1,0 +1,31 @@
+int latchPin5 = 5;   // Uno 5 nolu pin latchPin olarak adlandırıldı
+int clockPin6 = 6;   // Uno 6 nolu pin clockPin olarak adlandırıldı
+int dataPin4 = 4;    // Uno 4 nolu pin dataPin olarak adlandırıldı
+byte rakam[] = {  // Ortak katot display
+// Tek sayıları tanımladık
+ B00000110, // 1
+
+ B01001111, // 3
+
+ B01101101, // 5
+
+ B00000111, // 7
+
+ B01101111, // 9
+}; 
+
+void setup() {
+pinMode(latchPin5, OUTPUT); //latchPin çıkış olarak atandı.
+pinMode(dataPin4, OUTPUT); //dataPin çıkış olarak atandı.
+pinMode(clockPin6, OUTPUT); //clockPin çıkış olarak atandı.
+}
+void loop() {
+
+    for( int i=0; i<=4; i++){
+  
+    digitalWrite(latchPin5, LOW);
+    shiftOut(dataPin4, clockPin6, MSBFIRST,rakam[i]); // Veri 74hc595’e gönderiliyor.
+    digitalWrite(latchPin5, HIGH);
+    delay(250);// Bekleme süresi
+   }
+}
